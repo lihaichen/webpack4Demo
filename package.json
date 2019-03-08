@@ -1,0 +1,11 @@
+{
+  "name": "webpack4Demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:lihaichen/webpack4Demo.git",
+  "author": "lihaichen <li8303@163.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "webpack": "^4.29.6"
+  }
+}
