@@ -91,7 +91,15 @@ module.exports = smp.wrap({
           }
         ]
       },
-      {test: /\.(png|jpg|gif)$/, use: ['url-loader']}
+      {test: /\.(png|svg|jpg|gif)$/, use: ['url-loader']},
+      // 解析 MakeDown 文件
+      {test: /\.md$/, use: ['html-loader', 'markdown-loader']},
+      // 解析数据资源
+      {test: /\.(csv|tsv)$/, use: ['csv-loader']},
+      // 解析数据资源
+      {test: /\.xml$/, use: ['xml-loader']},
+      // 解析 字体
+      {test: /\.(woff|woff2|eot|ttf|otf)$/, use: ['file-loader']}
     ]
   },
   resolve: {
