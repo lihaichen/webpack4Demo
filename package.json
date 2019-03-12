@@ -51,13 +51,16 @@
     "webpack": "^4.29.6",
     "webpack-cli": "^3.2.3",
     "webpack-dev-server": "^3.2.1",
+    "webpack-merge": "^4.2.1",
     "xml-loader": "^1.2.1"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
+    "classnames": "^2.2.6",
     "dva": "^2.4.1",
     "immutable": "^4.0.0-rc.12",
     "less": "^3.9.0",
+    "lodash": "^4.17.11",
     "react": "^16.8.4",
     "react-dom": "^16.8.4"
   }

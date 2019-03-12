@@ -2,14 +2,15 @@ require('babel-polyfill');
 const path = require('path');
 const webpack = require('webpack');
 const assetsPath = path.resolve(__dirname, '../static');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
+const merge = require('webpack-merge');
+const webpackCommon = require('./webpack.common.js');
+const smp = new SpeedMeasurePlugin();
+
 const config = require('../config.json');
 const proxy = config.proxyConfig;
 const gitHash = config.debugConfig.gitHash;
-
-const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
-
-const smp = new SpeedMeasurePlugin();
 
 const webpackProxy = {};
 console.log('===>代理配置：');
@@ -18,9 +19,11 @@ proxy.forEach(function(item) {
   webpackProxy[item.path] = {target: item.target, pathRewrite: {'^/api': ''}};
 });
 
-module.exports = smp.wrap({
+const webpackDevConfig = {
   devtool: 'cheap-module-eval-source-map',
-  entry: {main: ['./src/index.js'], vendor: ['babel-polyfill']},
+  entry: {
+    main: ['./src/index.js']
+  },
   output: {
     path: assetsPath,
     filename: `js/[name]-${gitHash}.js`,
@@ -38,18 +41,15 @@ module.exports = smp.wrap({
     proxy: webpackProxy,
     host: '0.0.0.0',
     port: 8989,
-    disableHostCheck: true
+    disableHostCheck: true,
+    overlay: true
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(), new HtmlWebpackPlugin({
-      title: config.title,
-      template: './template/index.html',
-      filename: path.resolve(assetsPath, './index.html')
-    })
+    new webpack.HotModuleReplacementPlugin()
   ],
   optimization: {
     splitChunks: {
-      chunks: 'async',
+      chunks: 'all',
       minSize: 30000,
       maxSize: 0,
       minChunks: 1,
@@ -58,52 +58,21 @@ module.exports = smp.wrap({
       automaticNameDelimiter: '~',
       name: true,
       cacheGroups: {
-        vendors: {test: /[\\/]node_modules[\\/]/, priority: -10},
-        default: {minChunks: 2, priority: -20, reuseExistingChunk: true}
+        vendor: {
+          test: /node_modules/,
+          chunks: "initial",
+          name: "vendor",
+          priority: -10,
+          enforce: true
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true
+        }
       }
     }
-  },
-  module: {
-    rules: [
-      {test: /\.js[x]?$/, exclude: /node_modules/, use: ['babel-loader']},
-      {test: /\.json$/, use: ['json-loader']}, {
-        test: /\.less$/,
-        use: [
-          {
-            loader: 'style-loader'  // creates style nodes from JS strings
-          },
-          {
-            loader: 'css-loader'  // translates CSS into CommonJS
-          },
-          {
-            loader: 'less-loader'  // compiles Less to CSS
-          }
-        ]
-      },
-      {
-        test: /\.css$/,
-        use: [
-          {
-            loader: 'style-loader'  // creates style nodes from JS strings
-          },
-          {
-            loader: 'css-loader'  // translates CSS into CommonJS
-          }
-        ]
-      },
-      {test: /\.(png|svg|jpg|gif)$/, use: ['url-loader']},
-      // 解析 MakeDown 文件
-      {test: /\.md$/, use: ['html-loader', 'markdown-loader']},
-      // 解析数据资源
-      {test: /\.(csv|tsv)$/, use: ['csv-loader']},
-      // 解析数据资源
-      {test: /\.xml$/, use: ['xml-loader']},
-      // 解析 字体
-      {test: /\.(woff|woff2|eot|ttf|otf)$/, use: ['file-loader']}
-    ]
-  },
-  resolve: {
-    alias: {src: path.resolve(__dirname, 'src')},
-    modules: [path.resolve(__dirname, 'src'), 'node_modules']
   }
-});
+};
+
+module.exports = smp.wrap(merge(webpackCommon, webpackDevConfig));
