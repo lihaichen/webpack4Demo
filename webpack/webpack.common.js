@@ -9,7 +9,7 @@ module.exports = {
   output: {
     path: assetsPath,
     filename: `js/[name]-${gitHash}.[hash:4].js`,
-    chunkFilename: `js/[name]-${gitHash}.[hash:4]`,
+    chunkFilename: `js/[name]-${gitHash}.[hash:4].js`,
     publicPath: "/"
   },
   plugins: [
