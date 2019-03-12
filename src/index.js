@@ -1,10 +1,13 @@
 import dva from 'dva';
-import { BrowserRouter as router } from "dva/router";
+import React from "react";
+import { BrowserRouter as BR } from "dva/router";
+import router from './router.jsx'
+import appModel from './models/app.js';
 
-import App from './app.jsx'
+const app = dva({history: BR});
 
-const app = dva({history: router});
+app.model(appModel);
 
-app.router(App);
+app.router(router);
 
 app.start('#root');

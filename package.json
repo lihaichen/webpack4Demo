@@ -24,6 +24,9 @@
   },
   "devDependencies": {
     "@babel/core": "^7.3.4",
+    "@babel/plugin-proposal-class-properties": "^7.3.4",
+    "@babel/plugin-proposal-decorators": "^7.3.0",
+    "@babel/plugin-proposal-export-default-from": "^7.2.0",
     "@babel/preset-env": "^7.3.4",
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.3.3",
@@ -47,6 +50,7 @@
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "dva": "^2.4.1",
+    "immutable": "^4.0.0-rc.12",
     "less": "^3.9.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4"
