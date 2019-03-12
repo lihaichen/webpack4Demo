@@ -1,13 +1,10 @@
 import dva from 'dva';
-import React from 'react'
-import './index.less';
-import {browserHistory} from 'dva/router';
-import Router from './router';
+import { BrowserRouter as router } from "dva/router";
 
-const app = dva({
-  history: browserHistory
-});
+import App from './app.jsx'
 
-app.router(Router);
+const app = dva({history: router});
+
+app.router(App);
 
 app.start('#root');

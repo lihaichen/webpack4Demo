@@ -10,7 +10,7 @@ export default class NotFind extends Component {
   render() {
     return (
       <div className={`${prefixCls}`}>
-        <h2>404</h2>
+        <p>404</p>
       </div>);
   }
 }
