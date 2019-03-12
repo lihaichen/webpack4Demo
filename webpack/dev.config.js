@@ -93,5 +93,9 @@ module.exports = smp.wrap({
       },
       {test: /\.(png|jpg|gif)$/, use: ['url-loader']}
     ]
+  },
+  resolve: {
+    alias: {src: path.resolve(__dirname, 'src')},
+    modules: [path.resolve(__dirname, 'src'), 'node_modules']
   }
 });
