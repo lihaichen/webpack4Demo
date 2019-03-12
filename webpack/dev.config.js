@@ -21,15 +21,6 @@ proxy.forEach(function(item) {
 
 const webpackDevConfig = {
   devtool: 'cheap-module-eval-source-map',
-  entry: {
-    main: ['./src/index.js']
-  },
-  output: {
-    path: assetsPath,
-    filename: `js/[name]-${gitHash}.js`,
-    publicPath: '/',
-    chunkFilename: `[name]-${gitHash}.js`
-  },
   devServer: {
     hot: true,
     // enable HMR on the server
@@ -44,35 +35,7 @@ const webpackDevConfig = {
     disableHostCheck: true,
     overlay: true
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin()
-  ],
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-      minSize: 30000,
-      maxSize: 0,
-      minChunks: 1,
-      maxAsyncRequests: 5,
-      maxInitialRequests: 3,
-      automaticNameDelimiter: '~',
-      name: true,
-      cacheGroups: {
-        vendor: {
-          test: /node_modules/,
-          chunks: "initial",
-          name: "vendor",
-          priority: -10,
-          enforce: true
-        },
-        default: {
-          minChunks: 2,
-          priority: -20,
-          reuseExistingChunk: true
-        }
-      }
-    }
-  }
+  plugins: [new webpack.HotModuleReplacementPlugin()]
 };
 
 module.exports = smp.wrap(merge(webpackCommon, webpackDevConfig));
