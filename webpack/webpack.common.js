@@ -38,12 +38,8 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: ['babel-loader', 'eslint-loader'],
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: ['babel-loader', 'eslint-loader'],
+        resolve: { extensions: ['.js', '.jsx'] },
+        use: ['babel-loader', 'eslint-loader']
       },
       { test: /\.json$/, use: ['json-loader'] },
       {

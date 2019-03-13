@@ -1,7 +1,7 @@
 import dva from 'dva';
 import { BrowserRouter as history } from 'dva/router';
-import appModel from './models/app.js';
-import router from './router.jsx';
+import appModel from './models/app';
+import router from './router';
 
 const app = dva({ history });
 

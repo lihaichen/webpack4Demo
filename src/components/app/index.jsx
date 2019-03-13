@@ -1,21 +1,20 @@
-import React, { Component } from "react";
-import { connect } from "dva";
-import { Route, Switch } from "dva/router";
+import React from 'react';
+import { connect } from 'dva';
+import { Route, Switch } from 'dva/router';
 
-import NotFind from "../404/index.jsx";
+// import PropTypes from 'prop-types';
 
-const prefixCls = "App";
+import NotFind from '../404';
+
+const prefixCls = 'App';
 
 @connect(state => ({ app: state.app }))
-export default class App extends Component {
-  static propTypes = {};
-  constructor(props) {
-    super(props);
-  }
-  // eslint-disable-next-line react/no-deprecated
+export default class App extends React.Component {
   componentWillMount() {
-    console.log(this.props.app.toJS());
+    const { app } = this.props;
+    console.log(app.toJS());
   }
+
   render() {
     return (
       <div className={`${prefixCls}`}>
