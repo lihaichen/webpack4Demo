@@ -7,22 +7,25 @@ const config = require('../config.json');
 const assetsPath = path.resolve(__dirname, '../static');
 const gitHash = config.debugConfig.gitHash;
 
+let isDev = (process.env.npm_lifecycle_script.indexOf('development') === -1) ? false : true;
+
 module.exports = {
   entry: {main: ['./src/index.js']},
   output: {
     path: assetsPath,
-    filename: `js/[name]-${gitHash}.[chunkhash:4].js`,
-    chunkFilename: `js/[name]-${gitHash}.[chunkhash:4].js`,
+    filename: `js/[name]-${gitHash}.${isDev ? '' : '[chunkhash:8]'}.js`,
+    chunkFilename: `js/[name]-${gitHash}.${isDev ? '' : '[chunkhash:8]'}.js`,
     publicPath: '/'
   },
   plugins: [
-    new CleanWebpackPlugin(), new HtmlWebpackPlugin({
+    new webpack.HashedModuleIdsPlugin(),
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
       title: config.title,
       template: './template/index.html',
       filename: path.resolve(assetsPath, './index.html')
     }),
-    new webpack.HashedModuleIdsPlugin(),
-    // new webpack.LoaderOptionsPlugin({minimize: true})
+
   ],
   module: {
     rules: [

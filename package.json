@@ -6,20 +6,26 @@
   "author": "lihaichen <li8303@163.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "better-npm-run gen-dev-config &&  better-npm-run dev",
-    "prod": "better-npm-run gen-dev-config &&  better-npm-run prod"
+    "dev": "better-npm-run gen-development-config &&  better-npm-run dev",
+    "prod": "better-npm-run gen-production-config &&  better-npm-run prod"
   },
   "betterScripts": {
-    "gen-dev-config": {
+    "gen-development-config": {
       "command": "node ./cmd/generate_config.js",
       "env": {
-        "NODE_ENV": "dev"
+        "NODE_ENV": "development"
+      }
+    },
+    "gen-production-config": {
+      "command": "node ./cmd/generate_config.js",
+      "env": {
+        "NODE_ENV": "production"
       }
     },
     "dev": {
       "command": "node_modules/.bin/webpack-dev-server --mode development --config ./webpack/dev.config.js",
       "env": {
-        "NODE_ENV": "dev"
+        "NODE_ENV": "development"
       }
     },
     "prod": {

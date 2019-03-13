@@ -35,7 +35,10 @@ const webpackDevConfig = {
     disableHostCheck: true,
     overlay: true
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()]
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.HashedModuleIdsPlugin()
+  ]
 };
 
 module.exports = smp.wrap(merge(webpackCommon, webpackDevConfig));
