@@ -2,19 +2,19 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const config = require('../config.json');
 const assetsPath = path.resolve(__dirname, '../static');
 const gitHash = config.debugConfig.gitHash;
-
-let isDev = (process.env.npm_lifecycle_script.indexOf('development') === -1) ? false : true;
+const isDev = process.env.NODE_ENV === 'development';
 
 module.exports = {
   entry: {main: ['./src/index.js']},
   output: {
     path: assetsPath,
-    filename: `js/[name]-${gitHash}.${isDev ? '' : '[chunkhash:8]'}.js`,
-    chunkFilename: `js/[name]-${gitHash}.${isDev ? '' : '[chunkhash:8]'}.js`,
+    filename: `js/[name]-${gitHash}.${isDev ? '' : '[contenthash:8]'}.js`,
+    chunkFilename: `js/[name]-${gitHash}.${isDev ? '' : '[contenthash:8]'}.js`,
     publicPath: '/'
   },
   plugins: [
@@ -25,7 +25,10 @@ module.exports = {
       template: './template/index.html',
       filename: path.resolve(assetsPath, './index.html')
     }),
-
+    new MiniCssExtractPlugin({
+      filename: `styles/[name].${isDev ? '' : '[contenthash:8]'}.css`,
+      chunkFilename: `styles/[name].${isDev ? '' : '[contenthash:8]'}.chunk.css`
+  }),
   ],
   module: {
     rules: [
@@ -33,11 +36,17 @@ module.exports = {
       {test: /\.json$/, use: ['json-loader']}, {
         test: /\.less$/,
         use: [
-          {loader: 'style-loader'}, {loader: 'css-loader'},
-          {loader: 'less-loader'}
+          {loader: isDev ? 'style-loader' : MiniCssExtractPlugin.loader},
+          {loader: 'css-loader'}, {loader: 'less-loader'}
         ]
       },
-      {test: /\.css$/, use: [{loader: 'style-loader'}, {loader: 'css-loader'}]},
+      {
+        test: /\.css$/,
+        use: [
+          {loader: MiniCssExtractPlugin.loader},
+          {loader: 'css-loader'}
+        ]
+      },
       {test: /\.(png|svg|jpg|gif)$/, use: ['url-loader']},
       // 解析 MakeDown 文件
       {test: /\.md$/, use: ['html-loader', 'markdown-loader']},

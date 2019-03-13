@@ -3,6 +3,7 @@ node_modules/
 dist/
 static/index.html
 static/js/
+static/styles/
 .*/
 *.iml
 webpack-assets.json
