@@ -12,7 +12,6 @@ const webpackProdConfig = {
       new OptimizeCSSAssetsPlugin({})
     ]
   }
-
 };
 
 module.exports = merge(webpackCommon, webpackProdConfig);

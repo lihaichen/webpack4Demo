@@ -1,2 +1,19 @@
 {
+  "parser": "babel-eslint",
+  "plugins": ["react", "import"],
+  "rules": {
+    "no-unused-vars": 0,
+    "react/jsx-filename-extension": [0],
+    "no-undef": 0,
+    "no-console": 0
+  },
+  "extends": [
+    "eslint:recommended"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "legacyDecorators": true,
+      "experimentalObjectRestSpread": true
+    }
+  }
 }

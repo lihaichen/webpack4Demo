@@ -1,18 +1,15 @@
-import {Map} from 'immutable';
+import { Map } from 'immutable';
+
 export default {
   namespace: 'app',
-  state: Map({count: 0}),
-
+  state: Map({ count: 0 }),
   subscriptions: {
-    setup({dispatch, history}) {
-    },
+    setup({ dispatch, history }) {},
   },
-
   effects: {},
-
   reducers: {
     save(state, action) {
       return state.merge(action.payload);
-    }
+    },
   },
 };
