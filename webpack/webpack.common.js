@@ -39,7 +39,7 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         resolve: { extensions: ['.js', '.jsx'] },
-        use: ['babel-loader', 'eslint-loader']
+        use: ['babel-loader', 'eslint-loader'],
       },
       { test: /\.json$/, use: ['json-loader'] },
       {
@@ -95,6 +95,9 @@ module.exports = {
         },
         default: { minChunks: 2, priority: -20, reuseExistingChunk: true },
       },
+    },
+    runtimeChunk: {
+      name: 'runtime',
     },
   },
 };
