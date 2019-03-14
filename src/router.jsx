@@ -1,9 +1,10 @@
 import './index.less';
 import React from 'react';
+import { BrowserRouter } from 'dva/router';
 import App from './components/App';
 
-export default ({ history: Router }) => (
-  <Router>
+export default () => (
+  <BrowserRouter>
     <App />
-  </Router>
+  </BrowserRouter>
 );

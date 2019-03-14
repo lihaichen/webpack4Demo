@@ -1,9 +1,9 @@
 import dva from 'dva';
-import { BrowserRouter as history } from 'dva/router';
+import { BrowserRouter } from 'dva/router';
 import appModel from './models/app';
 import router from './router';
 
-const app = dva({ history });
+const app = dva({ history: BrowserRouter });
 
 app.model(appModel);
 
