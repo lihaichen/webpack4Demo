@@ -10,7 +10,9 @@ const webpackProdConfig = {
   devtool: 'hidden-source-map',
   optimization: {
     minimizer: [
-      new UglifyJsPlugin({ cache: true, parallel: true, sourceMap: true }),
+      new UglifyJsPlugin({
+        cache: true, parallel: true, sourceMap: true,
+      }),
       new OptimizeCSSAssetsPlugin({}),
       new BundleAnalyzerPlugin(),
     ],

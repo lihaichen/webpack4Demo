@@ -29,7 +29,7 @@
       }
     },
     "prod": {
-      "command": "node_modules/.bin/webpack --mode production --config ./webpack/prod.config.js",
+      "command": "node_modules/.bin/webpack --mode production -p --progress --config ./webpack/prod.config.js",
       "env": {
         "NODE_ENV": "production"
       }
